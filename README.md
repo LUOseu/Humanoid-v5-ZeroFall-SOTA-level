@@ -32,6 +32,20 @@ If the video does not render in the README preview, open `R024_demo.mp4` directl
 
 The R024 result is a single-seed result evaluated over 10 deterministic episodes. It should not be interpreted as a statistically complete stability study.
 
+## Figures
+
+Return comparison across local baselines:
+
+![Main return comparison](figures/main_return_comparison.png)
+
+Stability-return tradeoff, including the public TQC expert reference:
+
+![Stability-return frontier](figures/stability_return_frontier.png)
+
+Full-horizon completion rate during evaluation:
+
+![Full-horizon evaluation rate](figures/full_horizon_rate.png)
+
 ## Repository Layout
 
 | Path | Purpose |
@@ -84,17 +98,3 @@ python train_crossq_v2.py \
   --seed 2027 \
   --total-timesteps 5000000 \
   --n-envs 4 \
-  --net-arch 512,256,128 \
-  --batch-size 128 \
-  --learning-rate 1e-3 \
-  --save-dir runs/crossq_r024_s2027 \
-  --device cuda
-```
-
-PPO baseline:
-
-```bash
-python train.py \
-  --seed 2026 \
-  --total-timesteps 5000000 \
-  --n-envs 32 \
