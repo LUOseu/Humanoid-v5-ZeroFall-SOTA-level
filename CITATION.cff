@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this benchmark repository, please cite it as below and also cite CrossQ, Gymnasium, MuJoCo, Stable-Baselines3, and sb3-contrib where appropriate."
+message: "If you use this benchmark repository, please cite it and also cite CrossQ, Gymnasium, MuJoCo, Stable-Baselines3, and sb3-contrib where appropriate."
 type: software
 title: "Humanoid-v5 CrossQ Benchmark"
 authors:
@@ -14,4 +14,5 @@ keywords:
   - mujoco
   - crossq
   - stable-baselines3
+  - sb3-contrib
 abstract: "Training and evaluation scripts for reproducible 5M-step comparisons of PPO, SAC, SAC+VecNormalize, and CrossQ on Gymnasium Humanoid-v5."
