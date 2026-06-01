@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+title: Humanoid-v5 CrossQ Benchmark
+message: If you use this benchmark repository, please cite it and the original CrossQ paper.
+type: software
+authors:
+  - name: Humanoid-v5 CrossQ Benchmark Contributors
+keywords:
+  - reinforcement-learning
+  - humanoid-v5
+  - gymnasium
+  - mujoco
+  - crossq
+  - stable-baselines3
+license: MIT
