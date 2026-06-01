@@ -1,9 +1,12 @@
 cff-version: 1.2.0
-title: Humanoid-v5 CrossQ Benchmark
-message: If you use this benchmark repository, please cite it and the original CrossQ paper.
+message: "If you use this benchmark repository, please cite it as below and also cite CrossQ, Gymnasium, MuJoCo, Stable-Baselines3, and sb3-contrib where appropriate."
 type: software
+title: "Humanoid-v5 CrossQ Benchmark"
 authors:
-  - name: Humanoid-v5 CrossQ Benchmark Contributors
+  - family-names: "Luo"
+    given-names: "Yihan"
+repository-code: "https://github.com/LUOseu/Humanoid-v5-ZeroFall-SOTA-level"
+license: MIT
 keywords:
   - reinforcement-learning
   - humanoid-v5
@@ -11,4 +14,4 @@ keywords:
   - mujoco
   - crossq
   - stable-baselines3
-license: MIT
+abstract: "Training and evaluation scripts for reproducible 5M-step comparisons of PPO, SAC, SAC+VecNormalize, and CrossQ on Gymnasium Humanoid-v5."
