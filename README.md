@@ -36,7 +36,7 @@ The R024 result is a single-seed result evaluated over 10 deterministic episodes
 
 Return comparison across local baselines:
 
-![Main return comparison](figures/main_return_comparison.png)
+![Main return comparison](main_return_comparison.png)
 
 Stability-return tradeoff, including the public TQC expert reference:
 
