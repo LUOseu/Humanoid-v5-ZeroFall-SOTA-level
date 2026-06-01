@@ -180,19 +180,6 @@ For public claims, keep the following artifacts for each run:
 
 See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for details.
 
-## Claim Boundary
-
-Recommended wording:
-
-> We release a reproducible CrossQ benchmark for Gymnasium `Humanoid-v5`. In our 5M-step setup, CrossQ reaches `9121 ± 282` over three seeds. A stability-focused single-seed run reaches approximately `9938 ± 30` over 10 deterministic evaluation episodes, with all episodes reaching the 1000-step horizon.
-
-Avoid:
-
-> State-of-the-art on Humanoid-v5.
-
-A stronger but still safe positioning is:
-
-> CrossQ provides a high-return, low-variance `Humanoid-v5` baseline in this 5M-step reproduction, while public TQC expert policies retain the higher reported mean return.
 
 ## Citation
 
