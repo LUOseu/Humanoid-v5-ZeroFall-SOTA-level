@@ -1,79 +1,91 @@
 # Results
 
-This page collects the benchmark results used by the README. The numbers come from the local experiment trackers under `refine-logs/`.
+This document reports the currently reproduced `Humanoid-v5` results in this repository.
+
+The numbers below should be interpreted as repository-level benchmark results under the stated 5M-step training setup. They are not presented as a new algorithmic state-of-the-art claim.
 
 ## Evaluation Protocol
 
 - Environment: Gymnasium `Humanoid-v5`
 - MuJoCo: `3.8.1`
-- Main training budget: 5,000,000 environment steps per run
-- Evaluation: deterministic policy rollout
+- Training budget: 5,000,000 environment steps per run
+- Evaluation policy: deterministic rollout
 - Default evaluation episodes: 10
-- Reported metric: raw environment cumulative return
-- Episode horizon: 1000 steps, using the environment's default truncation
+- Reported metric: raw cumulative environment return
+- Episode horizon: 1000 steps
+- Reward normalization during evaluation: disabled for normalized baselines
+
+## Main Result Summary
+
+| System | Steps | Seeds | Evaluation return | Notes |
+|---|---:|---:|---:|---|
+| CrossQ baseline | 5M | 3 | `9121 ± 282` | Best reproduced 3-seed baseline in this repository |
+| CrossQ R024 | 5M | 1 | `~9938 ± 30` | Stability-focused run; 10/10 episodes reached 1000 steps |
+| PPO + VecNormalize | 5M | 3 | `7465 ± 935` | One seed had a collapse episode |
+| SAC | 5M | 3 | `6660 ± 101` | Stable but lower return |
+| SAC + VecNormalize | 5M | 3 | `4943 ± 1725` | High variance and frequent early collapses |
+| Public TQC expert | unknown / release artifact | model card | `10370 ± 1542` | Higher mean, much larger episode-return variance |
 
 ## CrossQ Results
 
-CrossQ uses the `sb3-contrib` implementation. The baseline configuration uses BatchNorm in the critic, no target network, no `VecNormalize`, `batch_size=128`, `net_arch=[256, 256]`, `learning_rate=1e-3`, and `gradient_steps=1`.
+CrossQ uses the `sb3-contrib` implementation.
 
-| Run | Config | Seed | Eval return | Stability note |
-|---|---|---:|---:|---|
-| CrossQ baseline | batch=128, `[256, 256]`, lr=1e-3 | 2027 | `8836 +/- 2832` | 1 collapse |
-| CrossQ baseline | batch=128, `[256, 256]`, lr=1e-3 | 2028 | `9399 +/- 60` | Perfect stability in 10 episodes |
-| CrossQ baseline | batch=128, `[256, 256]`, lr=1e-3 | 2029 | `9129 +/- 491` | 1 partial low-return episode |
-| CrossQ baseline mean | same | 3 seeds | `9121 +/- 282` | Across-seed sample std |
-| CrossQ R024 | batch=128, `[512, 256, 128]`, lr=1e-3 | 2027 | `~9938 +/- 30` | 10/10 episodes reached 1000 steps |
+The baseline configuration uses BatchNorm in the critic, no target network, no `VecNormalize`, `batch_size=128`, `net_arch=[256, 256]`, `learning_rate=1e-3`, and `gradient_steps=1`.
 
-The R024 result is the best stability-focused run observed so far. It should be treated as a single-seed result until additional seeds and longer evaluation are logged.
-
-## PPO / SAC Baselines
-
-| System | Seed | Eval return | Notes |
-|---|---:|---:|---|
-| PPO + VecNormalize | 2026 | `8107 +/- 54` | All 10 episodes reached 1000 steps |
-| PPO + VecNormalize | 2027 | `7900 +/- 50` | All 10 episodes reached 1000 steps |
-| PPO + VecNormalize | 2028 | `6387 +/- 1747` | 1/10 episodes collapsed at step 189 |
-| SAC | 2027 | `6787 +/- 25` | All 10 episodes reached 1000 steps |
-| SAC | 2028 | `6610 +/- 20` | All 10 episodes reached 1000 steps |
-| SAC | 2029 | `6584 +/- 11` | All 10 episodes reached 1000 steps |
-| SAC + VecNormalize | 2027 | `6883 +/- 2372` | About half of episodes collapsed early |
-| SAC + VecNormalize | 2028 | `4521 +/- 3113` | Frequent early collapse |
-| SAC + VecNormalize | 2029 | `3425 +/- 2450` | Frequent early collapse |
-
-Summary:
-
-| System | Seeds | Mean return | Across-seed std | Stability |
+| Run | Steps | Seed setting | Evaluation return | Notes |
 |---|---:|---:|---:|---|
-| CrossQ baseline | 3 | `9121` | `282` | High mean, two seeds had at least one unstable episode |
-| PPO + VecNormalize | 3 | `7465` | `935` | 29/30 episodes reached 1000 steps |
-| SAC | 3 | `6660` | `101` | 30/30 episodes reached 1000 steps |
-| SAC + VecNormalize | 3 | `4943` | `1725` | Frequent early collapses |
+| CrossQ baseline | 5M | 3 seeds | `9121 ± 282` | Main reproduced CrossQ baseline |
+| CrossQ R024 | 5M | 1 seed | `~9938 ± 30` | Stability-focused checkpoint |
 
-## Public Comparison
+The R024 run is a single-seed result evaluated over 10 deterministic episodes. It is useful as a stability example, but it should not be interpreted as a statistically complete multi-seed result.
 
-A public Farama/Minari `Humanoid-v5` TQC expert policy reports about `10370 +/- 1542`, which is higher than the CrossQ mean here. For that reason, this repository does not claim overall `Humanoid-v5` SOTA.
+## PPO and SAC Baselines
 
-The stability comparison is still meaningful:
+| Algorithm | Steps | Seeds | Evaluation return | Notes |
+|---|---:|---:|---:|---|
+| PPO + VecNormalize | 5M | 3 | `7465 ± 935` | One seed had a collapse episode |
+| SAC | 5M | 3 | `6660 ± 101` | Stable but lower return |
+| SAC + VecNormalize | 5M | 3 | `4943 ± 1725` | High variance and frequent early collapses |
 
-| Model | Mean | Std | Stability framing |
-|---|---:|---:|---|
-| Public TQC expert | `~10370` | `~1542` | Higher mean, large episode-return spread |
-| CrossQ R024 | `~9938` | `~30` | Lower mean, much tighter 10-episode evaluation |
+Under this repository's 5M-step setup, CrossQ obtains the strongest reproduced result among the local PPO, SAC, SAC+VecNormalize, and CrossQ baselines.
 
-Use this comparison carefully: TQC's reported result used many more evaluation episodes, while R024 currently has a 10-episode evaluation. A matched 100 or 1000 episode evaluation would make the stability claim much stronger.
+## Comparison with Public TQC Expert Policy
 
-## Suggested Claims
+| System | Evaluation return | Interpretation |
+|---|---:|---|
+| CrossQ R024 | `~9938 ± 30` | Lower variance in this repository's 10-episode evaluation |
+| Public TQC expert | `10370 ± 1542` | Higher mean return, much larger episode-return variance |
 
-Safe:
+The public TQC expert policy retains the higher reported mean return. Therefore, this repository should not claim overall `Humanoid-v5` state of the art.
 
-- CrossQ is the strongest reproduced baseline in this repository.
-- CrossQ reaches `9121 +/- 282` over 3 seeds at 5M steps.
-- R024 shows very low episode-return variance in a 10-episode deterministic evaluation.
-- SAC + VecNormalize was unstable in this off-policy setup, supporting the replay-buffer/running-statistics mismatch concern.
+A safe comparison is:
+
+> CrossQ provides a high-return, low-variance `Humanoid-v5` baseline in this 5M-step reproduction, while public TQC expert policies retain the higher reported mean return.
+
+## Recommended Claim Boundary
+
+Recommended wording:
+
+> We release a reproducible CrossQ benchmark for Gymnasium `Humanoid-v5`. In our 5M-step setup, CrossQ reaches `9121 ± 282` over three seeds. A stability-focused single-seed run reaches approximately `9938 ± 30` over 10 deterministic evaluation episodes, with all episodes reaching the 1000-step horizon.
 
 Avoid:
 
-- Overall `Humanoid-v5` SOTA.
-- Method novelty claims for CrossQ itself.
-- Stability superiority over TQC without noting protocol mismatch.
+> State-of-the-art on Humanoid-v5.
 
+Also avoid:
+
+> Solves Humanoid-v5.
+
+## How to Strengthen the Evidence
+
+For stronger public claims, add the following:
+
+- 100 or 1000 deterministic evaluation episodes for the R024 checkpoint
+- at least 3 training seeds for the R024 configuration
+- per-episode return list
+- per-episode length list
+- exact training commands
+- exact evaluation commands
+- TensorBoard logs or exported CSV learning curves
+- model checkpoints or external artifact links
+- demo video
