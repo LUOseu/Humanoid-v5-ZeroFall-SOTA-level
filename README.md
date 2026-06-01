@@ -6,11 +6,14 @@ The focus is not to introduce a new reinforcement-learning algorithm. Instead, t
 
 ## Demo
 
+## Demo
+
 The following video shows the R024 CrossQ stability-focused run.
 
-https://github.com/LUOseu/Humanoid-v5-ZeroFall-SOTA-level/blob/main/R024_demo.mp4
+https://github.com/LUOseu/Humanoid-v5-ZeroFall-SOTA-level/raw/main/R024_demo.mp4
 
-If the video does not render in the README preview, open `R024_demo.mp4` directly from the repository file list.
+If the video does not render in the README preview, open
+[R024_demo.mp4](R024_demo.mp4) directly.
 
 ## Highlights
 
@@ -40,11 +43,11 @@ Return comparison across local baselines:
 
 Stability-return tradeoff, including the public TQC expert reference:
 
-![Stability-return frontier](figures/stability_return_frontier.png)
+![Stability-return frontier](stability_return_frontier.png)
 
 Full-horizon completion rate during evaluation:
 
-![Full-horizon evaluation rate](figures/full_horizon_rate.png)
+![Full-horizon evaluation rate](full_horizon_rate.png)
 
 ## Repository Layout
 
