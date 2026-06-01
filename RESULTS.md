@@ -24,7 +24,6 @@ The numbers below should be interpreted as repository-level benchmark results un
 | PPO + VecNormalize | 5M | 3 | `7465 ± 935` | One seed had a collapse episode |
 | SAC | 5M | 3 | `6660 ± 101` | Stable but lower return |
 | SAC + VecNormalize | 5M | 3 | `4943 ± 1725` | High variance and frequent early collapses |
-| Public TQC expert | unknown / release artifact | model card | `10370 ± 1542` | Higher mean, much larger episode-return variance |
 
 ## CrossQ Results
 
@@ -49,18 +48,15 @@ The R024 run is a single-seed result evaluated over 10 deterministic episodes. I
 
 Under this repository's 5M-step setup, CrossQ obtains the strongest reproduced result among the local PPO, SAC, SAC+VecNormalize, and CrossQ baselines.
 
-## Comparison with Public TQC Expert Policy
+## External Reference
 
-| System | Evaluation return | Interpretation |
-|---|---:|---|
-| CrossQ R024 | `~9938 ± 30` | Lower variance in this repository's 10-episode evaluation |
-| Public TQC expert | `10370 ± 1542` | Higher mean return, much larger episode-return variance |
+Some public expert policies for `Humanoid-v5`, such as TQC-based expert policies, report higher mean returns than the results reproduced in this repository. Those policies are external references and are not trained or reproduced here.
 
-The public TQC expert policy retains the higher reported mean return. Therefore, this repository should not claim overall `Humanoid-v5` state of the art.
+Therefore, this repository should not claim overall `Humanoid-v5` state of the art.
 
 A safe comparison is:
 
-> CrossQ provides a high-return, low-variance `Humanoid-v5` baseline in this 5M-step reproduction, while public TQC expert policies retain the higher reported mean return.
+> CrossQ provides a strong `Humanoid-v5` baseline under this repository's 5M-step evaluation protocol, while some public expert policies may retain higher reported mean return.
 
 ## Recommended Claim Boundary
 
